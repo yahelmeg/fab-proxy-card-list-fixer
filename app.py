@@ -1,4 +1,5 @@
 import streamlit as st
+import pyperclip
 import re
 
 def card_list_fixer(input_text):
@@ -19,15 +20,19 @@ def card_list_fixer(input_text):
             card_name = match.group(2)
             output.extend([card_name] * count)
 
-    return "\n".join(output)
+    return output
 
-st.title("Card List Format Fixer")
+st.title("Fab Proxy Card List Fixer")
 
-input_text = st.text_area("Paste your card list here:", height=300)
+input_text = st.text_area("Paste your Fabrary card list here:")
 
-if st.button("Convert"):
-    if input_text.strip():
-        fixed = card_list_fixer(input_text)
-        st.text_area("Converted list:", fixed, height=300)
-    else:
-        st.warning("Please paste a card list to convert.")
+if st.button("Reformat"):
+    result = card_list_fixer(input_text)
+    output_text = "\n".join(result)
+
+    st.subheader("FabProxy Card List:")
+    st.text_area("FabProxy Card List", output_text, height=300)
+
+    if st.button("Copy to Clipboard"):
+        pyperclip.copy(output_text)
+        st.success("Card list copied to clipboard!")
