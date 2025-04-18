@@ -1,10 +1,10 @@
 import streamlit as st
-import pyperclip
 import re
+from clipboard_component import copy_component
 
-def card_list_fixer(input_text):
+def card_list_fixer(card_list):
     output = []
-    for line in input_text.strip().splitlines():
+    for line in card_list.strip().splitlines():
         line = line.strip()
         if not line or "cards" in line.lower():
             continue
@@ -31,8 +31,6 @@ if st.button("Reformat"):
     output_text = "\n".join(result)
 
     st.subheader("FabProxy Card List:")
-    st.text_area("FabProxy Card List", output_text, height=300)
+    st.text_area("Result", output_text, height=300, key="output_area")
 
-    if st.button("Copy to Clipboard"):
-        pyperclip.copy(output_text)
-        st.success("Card list copied to clipboard!")
+    copy_component(name="Copy to Clipboard", content=output_text)
