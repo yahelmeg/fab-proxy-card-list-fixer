@@ -22,7 +22,7 @@ def card_list_fixer(card_list):
 
     return output
 
-st.title("Fab Proxy Card List Fixer")
+st.title("Fabrary to FabProxy Converter")
 
 input_text = st.text_area("Paste your Fabrary card list here:")
 
